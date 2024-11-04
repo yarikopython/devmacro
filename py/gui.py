@@ -1,11 +1,15 @@
-from py.macro import Collection, screenshot, autoequip, autoquest
+from macro import Collection, screenshot, autoequip, autoquest, exiting
+from functions import settings, webhook, run
 import os
+import threading
 import pyautogui
 import keyboard
 import requests
 import time
 
+global vip
 
+vip = False
 
 macro_text = """
 ##   ##    ##      ## ##   ### ##    ## ##   
@@ -61,35 +65,7 @@ exit_text = """
 
 
 
-def settings():
-    global vip
-    os.system("cls")
-    print(settings_text)
-    vipif = input("Are you vip player?: ")
-    if vipif == "yes".lower():
-        vip = True
 
-    elif vipif == "no".lower():
-        vip = False
-    
-    print("Settings are saved, press Enter to get back to menu.")
-
-def run():
-    if vip == True:
-        Collection.everyvipspot()
-    
-    else:
-        Collection.everynonvipspot()
-        
-
-def webhook(url, message):
-    url = url
-    message = message
-    def send(themessage):
-        data = {"content": message}
-        response = requests.post(url, json=data)
-
-    send(themessage=message)
 
 
 
@@ -112,15 +88,27 @@ def main():
         match choice:
             case 1:
                 os.system("cls")
-                settings()
                 
+                os.system("cls")
             case 2:
+                os.system("cls")
+                print(webhok_text)
                 webhook()
+                os.system("cls")
                 
             case 3:
-                time.sleep(3)
-                run()
+                print(run_text)
+                while True:
+                    run_thread = threading.Thread(target=run())
+                    exit_thread = threading.Thread(target=exiting())
+                    time.sleep(5)
+                    run_thread.run()
+                    exit_thread.run()                    
+
+                
             case 4:
+
                 print(exit_text)
                 exit()
         
+main()
