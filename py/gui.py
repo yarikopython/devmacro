@@ -1,7 +1,6 @@
 from macro import Collection, screenshot, autoequip, autoquest
-from functions import settings, webhook, exiting, run
+from functions import settings, webhook, run
 from pyrobloxbot import NoRobloxWindowException
-import sys
 import os
 import threading
 import pyautogui
