@@ -6,6 +6,7 @@ import pyautogui
 import pydirectinput as dinput
 import threading
 import os
+import sys
 
 global pressing
 
@@ -29,10 +30,7 @@ def autoquest():
         clickAHK()
         time.sleep(900)
 
-def exiting():
-    while True:
-        keyboard.wait("F3")
-        break
+
 
 
 def autoequip(aura):
@@ -283,13 +281,37 @@ class Collection:
         pressing = False
 
     def everyvipspot():
+        if keyboard.is_pressed("F3"):
+            print("F3 pressed, exiting program.")
+            sys.exit()
+        
         Collection.spot12()
+
+        if keyboard.is_pressed("F3"):
+            print("F3 pressed, exiting program.")
+            sys.exit()
+
         Collection.spot34()
+
+        if keyboard.is_pressed("F3"):
+            print("F3 pressed, exiting program.")
+            sys.exit()
         Collection.spot56()
 
     def everynonvipspot():
+        if keyboard.is_pressed("F3"):
+            print("F3 pressed, exiting program.")
+            sys.exit()
         Collection.nonvipspot12()
+
+        if keyboard.is_pressed("F3"):
+            print("F3 pressed, exiting program.")
+            sys.exit()
         Collection.nonvipspot34()
+        if keyboard.is_pressed("F3"):
+            print("F3 pressed, exiting program.")
+            sys.exit()
+            
         Collection.nonvipspot56()
 
 

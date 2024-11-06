@@ -2,11 +2,11 @@ Send {Esc}
 Sleep, 1000 ; for better exprierence
 Send {Esc}
 
-MoveMouse, 40, 485
+MouseMove, 40, 485
 Sleep, 1000 ; moving and clicking at invetory
 MouseClick
 
-MoveMouse, 1257, 293
+MouseMove, 1257, 293
 Sleep, 1000 ; "Item" Button
 MouseClick
 
