@@ -1,5 +1,7 @@
-from macro import Collection, screenshot, autoequip, autoquest, exiting
-from functions import settings, webhook, run
+from macro import Collection, screenshot, autoequip, autoquest
+from functions import settings, webhook, exiting, run
+from pyrobloxbot import NoRobloxWindowException
+import sys
 import os
 import threading
 import pyautogui
@@ -8,7 +10,9 @@ import requests
 import time
 
 global vip
+global pressing
 
+pressing = False
 vip = False
 
 macro_text = """
@@ -88,7 +92,7 @@ def main():
         match choice:
             case 1:
                 os.system("cls")
-                
+                settings()
                 os.system("cls")
             case 2:
                 os.system("cls")
@@ -98,14 +102,8 @@ def main():
                 
             case 3:
                 print(run_text)
-                while True:
-                    run_thread = threading.Thread(target=run())
-                    exit_thread = threading.Thread(target=exiting())
-                    time.sleep(5)
-                    run_thread.run()
-                    exit_thread.run()                    
-
-                
+                run()
+                     
             case 4:
 
                 print(exit_text)
