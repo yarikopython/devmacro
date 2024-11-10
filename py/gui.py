@@ -1,5 +1,4 @@
-from macro import Collection, screenshot, autoequip, autoquest
-from functions import settings, webhook, run
+from functions import settings, run
 from pyrobloxbot import NoRobloxWindowException
 import os
 import threading
@@ -96,12 +95,10 @@ def main():
             case 2:
                 os.system("cls")
                 print(webhok_text)
-                webhook()
                 os.system("cls")
                 
             case 3:
                 print(run_text)
-                run()
                      
             case 4:
 

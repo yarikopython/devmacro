@@ -1,32 +1,59 @@
 from PIL import Image
+from webhook import webhook_url
 import pytesseract
+import requests
 import pyautogui
 import os
+import time
 import keyboard
+import threading
 
-pytesseract.pytesseract.tesseract_cmd = r'B:\devmacro\pytesseract\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
-biomes = [ "Hell", "Corruption", "Sandstorm", "Starfall", "Null"]
+biomes_ping = ["Hell", "Corruption", "Sandstorm", "Starfall", "Null"]
+biomes_noping = ["Normal", "Windy", "Snowy"]
+user_id = 681934150743097387
+
+current_biome = None
 
 def detect():
-    screenshot = pyautogui.screenshot("biom.png", (20, 945, 160, 30))
-    cleaned = ""
-    image_path = os.path.join("biom.png")
-    save = screenshot.save(image_path)
-    image = Image.open(image_path)
-    text = pytesseract.image_to_string(image=image)
-    oldbiome = ""
-    newbiome = ""
-    if "Normal" in text:
-        pass
-    if "Rainy" in text:
-        pass
-    if "Windy" in text:
-        pass
-    if "Sandstorm" in text:
-        pass
+    screenshot = pyautogui.screenshot("py\\biom.png", (20, 945, 160, 30))
     
-    return text
+    image = Image.open("py\\biom.png")
+    text = pytesseract.image_to_string(image=image)
+    for biome in biomes_ping + biomes_noping:
+        if biome in text:
+            return biome
+    return None
 
-keyboard.add_hotkey("F1", lambda: print(detect()))
-keyboard.wait("F3")
+def webhook(url, biome, ping=False):
+    if ping:
+        data = {
+            "content": f"{biome} detected, <@{user_id}>!"
+        }
+    else:
+        
+        data = {
+            "content": f"New Biome detected: {biome}"
+        }
+    request = requests.post(url=url, json=data)
+
+
+def check_biome():
+    global current_biome
+    new_biome = detect()
+    if new_biome and new_biome != current_biome:
+        if new_biome in biomes_ping:
+            webhook(webhook_url, new_biome, ping=True)
+        elif new_biome in biomes_noping:
+            webhook(webhook_url, new_biome, ping=False)
+
+            
+        current_biome = new_biome
+    time.sleep(5)
+
+
+def start():
+    thread = threading.Thread(target=check_biome)
+    thread.daemon = True
+    thread.start()
