@@ -1,0 +1,1 @@
+Hi, im yarikpython and this is my macro named "devmacro" for a roblox game "Sols RNG", im working on this project and trying to give my best, im using python and autohotkey script (AHK) for these macro, its not ready for use but in future you can use it.
