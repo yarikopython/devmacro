@@ -110,6 +110,7 @@ def screenshots_send(url):
             os.remove(inventory_path)
             os.remove(storage_path)
             os.remove(quest_path)
+            os.remove(log_path)
 
 
 
