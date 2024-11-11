@@ -49,7 +49,7 @@ def questscreen():
     time.sleep(1)
     logging.info("Taking screenshot of quests...")
     pyautogui.screenshot("py\\questscreen.png")
-    logging("The screenshot was taken")
+    logging.info("The screenshot was taken")
     time.sleep(1)
     logging.info("Closing quests...")
     os.system("ahk\\questscreenclose.ahk")

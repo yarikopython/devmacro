@@ -1,5 +1,4 @@
 from PIL import Image
-from webhook import webhook_url
 import pytesseract
 import requests
 import pyautogui
@@ -12,6 +11,8 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tessera
 
 biomes_ping = ["Hell", "Corruption", "Sandstorm", "Starfall", "Null"]
 biomes_noping = ["Normal", "Windy", "Snowy"]
+webhook_url = "https://discord.com/api/webhooks/1293885133165953034/egcgsKfawDe38louRl4u1A7FBJ3RNBaWCD2jiq3mIcR42mnhUz0abW2dZJN8ID_p3Hqt"
+
 user_id = 681934150743097387
 
 current_biome = None

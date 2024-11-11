@@ -17,11 +17,7 @@ global auraforequip
 global webhook_url
 
 vip = False
-
-logging.basicConfig(filename="py\\webhooklog.txt",
-level=logging.INFO,
-format="[%(asctime)s] - %(message)s",
-datefmt="%H:%M:%S")
+running = True
 
 
 def settings():
@@ -43,8 +39,7 @@ def settings():
 
 
 
-
-
+webhook_url = "https://discord.com/api/webhooks/1302719341384700038/qp_pTHYEemyxMnusqOwdkvh4_9gU_quQ3NqFKX7-F8vqRbIoJTuSAQfThLpWAFaPhKiy"
 
 
 
@@ -59,7 +54,7 @@ def screenshots_send(url):
     logging.info("Completed.")
 
 
-    logging.info("Checking if files are existing...")
+    logging.info("Checking if files are  not existing...")
     if not os.path.exists(inventory_path):
         logging.info("Making a screenshot from inventory...")
         inventoryscreen()
@@ -109,7 +104,7 @@ def screenshots_send(url):
                                 data=inventory_data,
                                 files={"file": inventory_file}
                                 )
-            logging.info()
+
 
             storage = requests.post(
                                 url=url,    
@@ -131,23 +126,38 @@ def screenshots_send(url):
 
             logging.info("Removing files to make fresh screenshots in the next time...")
 
+            inventory_file.close()
+            storage_file.close()
+            quest_file.close()
+            log_file.close()
+
             os.remove(inventory_path)
             os.remove(storage_path)
             os.remove(quest_path)
-            os.remove(log_path)
 
             logging.info("Completed.")
 
 
+def onpress():
+    global running
+
+    while running:
+        if keyboard.is_pressed("F3"):
+            running = False
+            break
+        time.sleep(0.1)
 
 def run():
-    keyboard.wait("F1")
+    global running
+
+    threading.Thread(target=onpress, daemon=True).start()
+
     while True:
-        keyboard.add_hotkey("F3", lambda: sys.exit())
         questAHK()
-        time.sleep(900)
-        autoequip(auraforequip)
-        time.sleep(900)
+        time.sleep(2)
+        autoequip("Glock")
+        time.sleep(2)
         screenshots_send(webhook_url)
 
-
+time.sleep(2)
+run()
