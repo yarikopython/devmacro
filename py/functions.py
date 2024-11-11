@@ -5,6 +5,7 @@ from detect import start
 import os
 import requests
 import keyboard
+import logging
 
 import pyautogui
 import time
@@ -12,6 +13,11 @@ import threading
 
 vip = False
 running = False
+
+logging.basicConfig(filename="py\\webhooklog.txt",
+level=logging.INFO,
+format="[%(asctime)s] - %(message)s",
+datefmt="%H:%M:%S")
 
 
 def settings():
@@ -42,29 +48,38 @@ def settings():
 
 
 def screenshots_send(url):
+    logging.info("Getting png paths...")
     inventory_path = "py\\invetoryscreen.png"
     storage_path = "py\\storagescreen.png"
     quest_path = "py\\questscreen.png"
     log_path = "py\\macrolog.txt"
+    logging.info("Completed.")
 
 
-
+    logging.info("Checking if files are existing...")
     if not os.path.exists(inventory_path):
+        logging.info("Making a screenshot from inventory...")
         inventoryscreen()
     if not os.path.exists(storage_path):
+        logging.info("Making a screenshot from storage...")
         storagescreen()
     if not os.path.exists(quest_path):
+        logging.info("Making a screenshot from quests...")
         questscreen()
 
-    
+    logging.info("Completed.")
 
 
     time.sleep(1)
+
+    logging.info("Starting to open files...")
 
     with open(inventory_path, "rb") as inventory_file, \
         open(storage_path, "rb") as storage_file, \
         open(quest_path, "rb") as quest_file, \
         open(log_path, "rb") as log_file:
+    
+    logging.info("Completed.")
 
             
             inventory_data = {"content": "**Item Inventory**",
@@ -84,12 +99,14 @@ def screenshots_send(url):
 
             log_data = {"content": "**Macro Logs**", }
 
+        logging.info("Sending files to users webhook...")
 
             inventory = requests.post(
                                 url,
                                 data=inventory_data,
                                 files={"file": inventory_file}
                                 )
+            logging.info()
 
             storage = requests.post(
                                 url=url,    
@@ -107,10 +124,16 @@ def screenshots_send(url):
                                 data=log_data,
                                 files={"file": (log_path, log_file)})
 
+            logging.info("Finished with webhook send.")
+
+            logging.info("Removing files to make fresh screenshots in the next time...")
+
             os.remove(inventory_path)
             os.remove(storage_path)
             os.remove(quest_path)
             os.remove(log_path)
+
+            logging.info("Completed.")
 
 
 

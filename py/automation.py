@@ -1,9 +1,7 @@
 
 import keyboard
-import pyrobloxbot
 import time
 import pyautogui
-import threading
 import os
 import sys
 import logging
@@ -15,7 +13,6 @@ logging.basicConfig(filename="py\\macrolog.txt",
 
 
 
-pressing = False
 
 
 
