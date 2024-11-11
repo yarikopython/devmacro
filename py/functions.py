@@ -1,7 +1,7 @@
-from py.automation import inventoryscreen, storagescreen, questscreen
+from automation import inventoryscreen, storagescreen, questscreen, autoequip, questAHK
 from pyrobloxbot import NoRobloxWindowException
-from webhook import webhook_url
 from detect import start
+
 import os
 import requests
 import keyboard
@@ -11,8 +11,11 @@ import pyautogui
 import time
 import threading
 
+global vip
+global auraforequip
+global webhook_url
+
 vip = False
-running = False
 
 logging.basicConfig(filename="py\\webhooklog.txt",
 level=logging.INFO,
@@ -21,8 +24,6 @@ datefmt="%H:%M:%S")
 
 
 def settings():
-    global vip
-    global auraforequip
         
     os.system("cls")
     vipif = str(input("Are you vip player?: "))
@@ -33,6 +34,7 @@ def settings():
         vip = False
         
     auraforequip = str(input("Which aura you want to have for auto equip?:"))
+    webhook_url = str(input("Please paste your webhook url: "))
             
 
     print("Settings are saved, press Enter to get back to menu.")
@@ -79,7 +81,7 @@ def screenshots_send(url):
         open(quest_path, "rb") as quest_file, \
         open(log_path, "rb") as log_file:
     
-    logging.info("Completed.")
+            logging.info("Completed.")
 
             
             inventory_data = {"content": "**Item Inventory**",
@@ -99,7 +101,7 @@ def screenshots_send(url):
 
             log_data = {"content": "**Macro Logs**", }
 
-        logging.info("Sending files to users webhook...")
+            logging.info("Sending files to users webhook...")
 
             inventory = requests.post(
                                 url,
@@ -138,4 +140,11 @@ def screenshots_send(url):
 
 
 def run():
-    pass
+    keyboard.wait("F1")
+    while True:
+        questAHK()
+        time.sleep(900)
+        autoequip(auraforequip)
+        time.sleep(900)
+        screenshots_send(webhook_url)
+
