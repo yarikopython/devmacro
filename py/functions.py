@@ -10,6 +10,7 @@ import logging
 import pyautogui
 import time
 import threading
+import sys
 
 global vip
 global auraforequip
@@ -142,9 +143,11 @@ def screenshots_send(url):
 def run():
     keyboard.wait("F1")
     while True:
+        keyboard.add_hotkey("F3", lambda: sys.exit())
         questAHK()
         time.sleep(900)
         autoequip(auraforequip)
         time.sleep(900)
         screenshots_send(webhook_url)
+
 
