@@ -107,6 +107,10 @@ def screenshots_send(url):
                                 data=log_data,
                                 files={"file": (log_path, log_file)})
 
+            os.remove(inventory_path)
+            os.remove(storage_path)
+            os.remove(quest_path)
+
 
 
 def run():
