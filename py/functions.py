@@ -158,9 +158,6 @@ def run():
         screenshots_send(webhook_url)
     
 
-<<<<<<< HEAD
 
-=======
 time.sleep(2)
 run()
->>>>>>> 9901b0b9e7d71272e4eb20e40287cc479666c57a
