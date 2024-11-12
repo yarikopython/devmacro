@@ -1,0 +1,1 @@
+f3:%3A%0AFileAppend,,%20stop_flag.txt%20%20;%20%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%B5%D0%BC%20%D0%BF%D1%83%D1%81%D1%82%D0%BE%D0%B9%20%D1%84%D0%B0%D0%B9%D0%BB%20stop_flag.txt%0AReturn%0A

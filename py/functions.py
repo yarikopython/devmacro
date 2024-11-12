@@ -140,12 +140,10 @@ def screenshots_send(url):
 
 def onpress():
     global running
-
     while running:
-        if keyboard.is_pressed("F3"):
+        if os.path.exists("stop_flag.txt"):
             running = False
-            break
-        time.sleep(0.1)
+            break     
 
 def run():
     global running
@@ -158,6 +156,11 @@ def run():
         autoequip("Glock")
         time.sleep(2)
         screenshots_send(webhook_url)
+    
 
+<<<<<<< HEAD
+
+=======
 time.sleep(2)
 run()
+>>>>>>> 9901b0b9e7d71272e4eb20e40287cc479666c57a
