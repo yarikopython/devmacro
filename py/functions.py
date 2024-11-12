@@ -152,7 +152,7 @@ def run():
 
     threading.Thread(target=onpress, daemon=True).start()
 
-    while True:
+    while running:
         questAHK()
         time.sleep(2)
         autoequip("Glock")
