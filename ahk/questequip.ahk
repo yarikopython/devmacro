@@ -27,9 +27,6 @@ Sleep, 1000
 MouseClick
 
 
-MouseMove, 621, 774 ; claiming button
-Sleep, 500
-MouseClick,
 
 
 MouseMove, 1202, 614 ; 2nd quest
@@ -37,19 +34,13 @@ Sleep, 1000
 MouseClick
 
 
-MouseMove, 621, 774 ; claiming button
-Sleep, 500
-MouseClick,
 
 
-MouseMove, 1139, 609 ; 3rd quest
+MouseMove, 1392, 675 ; 3rd quest
 Sleep, 1000
 MouseClick
 
 
-MouseMove, 621, 774 ; claiming button
-Sleep, 500
-MouseClick,
 
 
 MouseMove, 47, 600 ; Closing quest

@@ -3,10 +3,10 @@ import keyboard
 import time
 import pyautogui
 import os
-import sys
 import logging
+import configparser
 
-logging.basicConfig(filename="py\\macrolog.txt",
+logging.basicConfig(filename="macrolog.txt",
                     level=logging.INFO,
                     format="[%(asctime)s] - %(message)s",
                     datefmt="%H:%M:%S")
@@ -58,13 +58,17 @@ def questscreen():
 
 
 def questAHK():
-  logging.info("Auto claiming every daily quest...")
-  os.system("ahk\\questequip.ahk")
-  logging.info("Finished auto claiming quests")
+        logging.info("Auto claiming every daily quest...")
+        os.system("ahk\\questequip.ahk")
+        logging.info("Finished auto claiming quests")
+        time.sleep(2)
 
 
 
-def autoequip(aura):
+def autoequip():
+        config = configparser.ConfigParser()
+        config.read("py\\config.ini")
+        aura = config.get("settings", "auratoequip")
         logging.info("Going to aura storage and search bar to search typed aura...")
         os.system("ahk\\autoequip.ahk")
         time.sleep(1)
@@ -75,8 +79,3 @@ def autoequip(aura):
         time.sleep(1)
         logging.info("Quiting aura storage...")
         os.system("ahk\\autoequip2.ahk")
-    
-
-
-    
-

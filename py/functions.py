@@ -1,6 +1,5 @@
 from automation import inventoryscreen, storagescreen, questscreen, autoequip, questAHK
 from pyrobloxbot import NoRobloxWindowException
-from detect import start
 
 import os
 import requests
@@ -11,10 +10,14 @@ import pyautogui
 import time
 import threading
 import sys
+import configparser
 
-global vip
-global auraforequip
-global webhook_url
+config = configparser.ConfigParser()
+
+if "settings" not in config.sections():
+    config.add_section("settings")
+
+
 
 vip = False
 running = True
@@ -23,34 +26,40 @@ running = True
 def settings():
         
     os.system("cls")
-    vipif = str(input("Are you vip player?: "))
+    vipif = input("Are you vip player?: ")
     if vipif == "yes".lower():
         vip = True
+        config.set("settings", "vip", str(vip))
 
     else:
         vip = False
+        config.set("settings","vip", str(vip))
         
     auraforequip = str(input("Which aura you want to have for auto equip?:"))
     webhook_url = str(input("Please paste your webhook url: "))
-            
+    config.set("settings", "auratoequip", auraforequip)
+    config.set("settings", "webhook_url", webhook_url)
+
+    with open("py\\config.ini", "w") as configfile:
+        config.write(configfile)
 
     print("Settings are saved, press Enter to get back to menu.")
             
 
-
-
-webhook_url = "https://discord.com/api/webhooks/1302719341384700038/qp_pTHYEemyxMnusqOwdkvh4_9gU_quQ3NqFKX7-F8vqRbIoJTuSAQfThLpWAFaPhKiy"
-
+webhook_url = "https://discord.com/api/webhooks/1293885133165953034/egcgsKfawDe38louRl4u1A7FBJ3RNBaWCD2jiq3mIcR42mnhUz0abW2dZJN8ID_p3Hqt"
 
 
 
 
-def screenshots_send(url):
+
+
+def screenshots_send():
     logging.info("Getting png paths...")
     inventory_path = "py\\invetoryscreen.png"
     storage_path = "py\\storagescreen.png"
     quest_path = "py\\questscreen.png"
-    log_path = "py\\macrolog.txt"
+    log_path = "macrolog.txt"
+    config.read("py\\config.ini")
     logging.info("Completed.")
 
 
@@ -100,25 +109,25 @@ def screenshots_send(url):
             logging.info("Sending files to users webhook...")
 
             inventory = requests.post(
-                                url,
+                                url= webhook_url,
                                 data=inventory_data,
                                 files={"file": inventory_file}
                                 )
 
 
             storage = requests.post(
-                                url=url,    
+                                url=webhook_url,    
                                 data=storage_data,
                                 files={"file": storage_file}
                                 )
                             
             quest = requests.post(
-                                url=url,
+                                url=webhook_url,
                                 data=quest_data,
                                 files={"file": quest_file}
                                 )
             
-            logs = requests.post(url=url,
+            logs = requests.post(url=webhook_url,
                                 data=log_data,
                                 files={"file": (log_path, log_file)})
 
@@ -138,26 +147,29 @@ def screenshots_send(url):
             logging.info("Completed.")
 
 
-def onpress():
-    global running
-    while running:
-        if os.path.exists("stop_flag.txt"):
-            running = False
-            break     
+
+def clearlogs(filepath):
+    with open(file=filepath, mode="w") as file:
+        file.write("")
+        file.close()
+
+
+def exit():
+    while True:
+        keyboard.wait('f3')
+        os._exit(1)        
 
 def run():
-    global running
-
-    threading.Thread(target=onpress, daemon=True).start()
-
-    while running:
+    clearlogs("py\\macrolog.txt")
+    logging.info("Starting the program.")
+    while True:
+        threading.Thread(target=exit).start()
         questAHK()
-        time.sleep(2)
+        time.sleep(4)
         autoequip("Glock")
-        time.sleep(2)
-        screenshots_send(webhook_url)
-    
+        time.sleep(4)
+        screenshots_send()
 
 
 time.sleep(2)
-run()
+screenshots_send()

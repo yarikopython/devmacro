@@ -9,29 +9,41 @@ import threading
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
-biomes_ping = ["Hell", "Corruption", "Sandstorm", "Starfall", "Null"]
-biomes_noping = ["Normal", "Windy", "Snowy"]
-webhook_url = "https://discord.com/api/webhooks/1293885133165953034/egcgsKfawDe38louRl4u1A7FBJ3RNBaWCD2jiq3mIcR42mnhUz0abW2dZJN8ID_p3Hqt"
+biomes_ping = ["Hell", "Corruption", "Sand storm", "Starfall", "Null"]
+biomes_noping = ["NORMAL", "Windy", "Snowy"]
+webhook_url = "https://discord.com/api/webhooks/1302719341384700038/qp_pTHYEemyxMnusqOwdkvh4_9gU_quQ3NqFKX7-F8vqRbIoJTuSAQfThLpWAFaPhKiy"
 
 user_id = 681934150743097387
 
 current_biome = None
 
 def detect():
-    screenshot = pyautogui.screenshot("py\\biom.png", (20, 945, 160, 30))
+    screenshot = pyautogui.screenshot("py\\biom.png", (5, 900, 160, 30))
     
     image = Image.open("py\\biom.png")
     text = pytesseract.image_to_string(image=image)
-    for biome in biomes_ping + biomes_noping:
-        if biome in text:
-            return biome
-    return None
+    """    if "0" in text and "." in text:
+                webhook(url=webhook_url, biome="Glitched", ping=True, glitched=True)
+            
+        else:
+            for biome in biomes_ping + biomes_noping:
+                if biome in text:
+                    return biome
+                return None"""
+    webhook(url=webhook_url, biome=text, ping=True, glitched=False)
 
-def webhook(url, biome, ping=False):
+
+
+def webhook(url, biome, ping=False, glitched=False):
     if ping:
         data = {
             "content": f"{biome} detected, <@{user_id}>!"
         }
+    elif glitched:
+         data = {
+            "content": f"Glitch Biome detected!!!, <@{user_id}>!"
+        }
+    
     else:
         
         data = {
@@ -41,20 +53,15 @@ def webhook(url, biome, ping=False):
 
 
 def check_biome():
-    global current_biome
-    new_biome = detect()
-    if new_biome and new_biome != current_biome:
-        if new_biome in biomes_ping:
-            webhook(webhook_url, new_biome, ping=True)
-        elif new_biome in biomes_noping:
-            webhook(webhook_url, new_biome, ping=False)
+        global current_biome
+        new_biome = detect()
+        if new_biome and new_biome != current_biome:
+            if new_biome in biomes_ping:
+                webhook(webhook_url, new_biome, ping=True)
+            elif new_biome in biomes_noping:
+                webhook(webhook_url, new_biome, ping=False)
 
-            
-        current_biome = new_biome
-    time.sleep(5)
+                
+            current_biome = new_biome
+        time.sleep(5)
 
-
-def start():
-    thread = threading.Thread(target=check_biome)
-    thread.daemon = True
-    thread.start()

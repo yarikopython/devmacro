@@ -3,10 +3,10 @@ Sleep, 1000
 Send {Esc}
 
 
-MouseMove, 35, 620 ; Open quest
+MouseMove, 47, 600 ; Open quest
 Sleep, 1000
 MouseClick
 
-MouseMove, 1212, 300 ; "Daily quest"
+MouseMove, 1266, 336 ; "Daily quest"
 Sleep, 1000
 MouseClick

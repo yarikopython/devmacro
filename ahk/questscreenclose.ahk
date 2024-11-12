@@ -1,3 +1,3 @@
-MouseMove, 1392, 250 ; Closing quest
+MouseMove, 47, 600 ; Closing quest
 Sleep, 1000
 MouseClick
