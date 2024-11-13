@@ -114,7 +114,12 @@ about_text = """
 
 
 
-
+def about_project():
+    print(about_text)
+    print("""\n This macro was made by yarikpython,
+           free to use and also free to modifier (but pls let me know),
+           \n This 'Mini-Macro' Project was started on 10/28/2024.
+           \n github link: https://github.com/yarikopython/devmacro """)
 
 
 def menu():
@@ -154,5 +159,4 @@ def main():
 
             case 5:
                 print(about_text)
-
-print(about_text)
+about_project()
