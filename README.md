@@ -22,3 +22,11 @@ This script uses both **Python** and **AutoHotkey (AHK)** to handle different au
    ```bash
    git clone https://github.com/yarikopython/devmacro.git
    cd devmacro
+
+2. **Install Python requirements**:
+    ```bash
+    pip install -r requirements.txt
+
+3. **Run The script**
+   ```bash
+   python main.py
