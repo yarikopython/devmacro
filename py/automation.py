@@ -6,12 +6,12 @@ import os
 import logging
 import configparser
 
-logging.basicConfig(filename="macrolog.txt",
+logging.basicConfig(filename="py\\macrolog.txt",
                     level=logging.INFO,
                     format="[%(asctime)s] - %(message)s",
                     datefmt="%H:%M:%S")
 
-
+config = configparser.ConfigParser()
 
 
 
