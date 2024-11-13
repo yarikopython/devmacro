@@ -172,4 +172,4 @@ def run():
 
 
 time.sleep(2)
-screenshots_send()
+settings()
