@@ -11,8 +11,9 @@ import time
 import threading
 import sys
 import configparser
+from automation import config
 
-config = configparser.ConfigParser()
+
 
 if "settings" not in config.sections():
     config.add_section("settings")
@@ -46,7 +47,6 @@ def settings():
     print("Settings are saved, press Enter to get back to menu.")
             
 
-webhook_url = "https://discord.com/api/webhooks/1293885133165953034/egcgsKfawDe38louRl4u1A7FBJ3RNBaWCD2jiq3mIcR42mnhUz0abW2dZJN8ID_p3Hqt"
 
 
 
@@ -58,8 +58,9 @@ def screenshots_send():
     inventory_path = "py\\invetoryscreen.png"
     storage_path = "py\\storagescreen.png"
     quest_path = "py\\questscreen.png"
-    log_path = "macrolog.txt"
     config.read("py\\config.ini")
+    webhook_url = config.get("settings", "webhook_url")
+
     logging.info("Completed.")
 
 
@@ -83,8 +84,7 @@ def screenshots_send():
 
     with open(inventory_path, "rb") as inventory_file, \
         open(storage_path, "rb") as storage_file, \
-        open(quest_path, "rb") as quest_file, \
-        open(log_path, "rb") as log_file:
+        open(quest_path, "rb") as quest_file:
     
             logging.info("Completed.")
 
@@ -127,9 +127,6 @@ def screenshots_send():
                                 files={"file": quest_file}
                                 )
             
-            logs = requests.post(url=webhook_url,
-                                data=log_data,
-                                files={"file": (log_path, log_file)})
 
             logging.info("Finished with webhook send.")
 
@@ -138,7 +135,6 @@ def screenshots_send():
             inventory_file.close()
             storage_file.close()
             quest_file.close()
-            log_file.close()
 
             os.remove(inventory_path)
             os.remove(storage_path)
@@ -171,5 +167,7 @@ def run():
         screenshots_send()
 
 
-time.sleep(2)
+"""time.sleep(2)
 settings()
+time.sleep(1)
+screenshots_send()"""
