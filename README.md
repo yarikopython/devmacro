@@ -4,7 +4,8 @@
 
 This script uses both **Python** and **AutoHotkey (AHK)** to handle different automation tasks. Python powers the core functionalities, including GUI, Discord integration, and data tracking, while AutoHotkey is used for certain low-level automation features, like managing input controls in the game.
 
-From this branch you can install the same macro but with custom bot, you just need to get token key and paste it.
+**From this branch you can install the same macro but with custom bot,
+you just need to get token key and paste it.**
 
 ## 📜 Features
 
