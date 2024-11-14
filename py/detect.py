@@ -20,18 +20,15 @@ current_biome = None
 def detect():
     screenshot = pyautogui.screenshot("py\\biom.png", (5, 900, 160, 30))
     
+    colors = [(53, 87, 114), (51, 114, 123)] #1 is rainy 2 is windy 3 normal 4 sandstorm 5 starfall 6 null 7 hell 8 corruption 9 snowy
+
     image = Image.open("py\\biom.png")
     text = pytesseract.image_to_string(image=image)
-    """    if "0" in text and "." in text:
-                webhook(url=webhook_url, biome="Glitched", ping=True, glitched=True)
-            
-        else:
-            for biome in biomes_ping + biomes_noping:
-                if biome in text:
-                    return biome
-                return None"""
-    webhook(url=webhook_url, biome=text, ping=True, glitched=False)
-
+    for x in range(image.width):
+            for y in range(image.height) :
+                pixel = image.getpixel((x, y))[:3]
+                if pixel == (103, 118, 106):
+                        print("yes")
 
 
 def webhook(url, biome, ping=False, glitched=False):
@@ -65,3 +62,6 @@ def check_biome():
             current_biome = new_biome
         time.sleep(5)
 
+
+time.sleep(2)
+detect()

@@ -37,8 +37,11 @@ def settings():
         config.set("settings","vip", str(vip))
         
     auraforequip = str(input("Which aura you want to have for auto equip?:"))
+    userid = int(input("Please paste your user id to get ping: "))
     webhook_url = str(input("Please paste your webhook url: "))
+
     config.set("settings", "auratoequip", auraforequip)
+    config.set("settings", "userid", userid)
     config.set("settings", "webhook_url", webhook_url)
 
     with open("py\\config.ini", "w") as configfile:

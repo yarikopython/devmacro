@@ -1,36 +1,8 @@
-import os
-import time
-import pyautogui
-"""import pyrobloxbot
+import webcolors
+rgb = (51, 55, 63)
 
-example for Collection
+def rgb_to_hex(rgb):
+    return '#{:02x}{:02x}{:02x}'.format(*rgb)
 
-class Collection:
-
-    def nonvipspot1():
-        pass
-
-    def nonvipspot2():
-        pass
-
-    def nonvipspot3():
-        pass
-
-    def nonvipspot4():
-        pass
-
-    def nonvipspot5():
-        pass
-    
-    def nonvipspot6():
-        pass
-
-    def nonvipspots():
-        Collection.nonvipspot1()
-        Collection.nonvipspot2()
-        Collection.nonvipspot3()
-        Collection.nonvipspot4()
-        Collection.nonvipspot5()
-        Collection.nonvipspot6()
-        """
-
+hex_color = rgb_to_hex(rgb)
+print(f"HEX: {hex_color}")

@@ -3,3 +3,7 @@ __pycache__/
 venv/
 .vscode/
 py/macrolog.txt
+py/config,ini
+py/current.py
+py/test.py
+py/detect.py

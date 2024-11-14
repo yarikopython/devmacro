@@ -1,15 +1,4 @@
-from functions import settings, run
-from pyrobloxbot import NoRobloxWindowException
 import os
-import threading
-import pyautogui
-import keyboard
-import requests
-import time
-
-global vip
-global pressing
-
 
 macro_text = """
 ##   ##    ##      ## ##   ### ##    ## ##   
@@ -129,34 +118,6 @@ def menu():
     print("         Devmacro by darkness, v0.1      ")
     print("=" * 40)
     print("\n [1] - Settings")
-    print("\n [2] - Discord Webhook")
-    print("\n [3] - Run")
-    print("\n [4] - Exit")
-    print("\n [5] About Project")
-
-def main():
-    while True:
-        menu()
-        choose = input("\nChoose one option: ")
-        choice = int(choose)
-        match choice:
-            case 1:
-                os.system("cls")
-                settings()
-                os.system("cls")
-            case 2:
-                os.system("cls")
-                print(webhok_text)
-                os.system("cls")
-                
-            case 3:
-                print(run_text)
-                     
-            case 4:
-
-                print(exit_text)
-                break
-
-            case 5:
-                print(about_text)
-about_project()
+    print("\n [2] - Run")
+    print("\n [3] - Exit")
+    print("\n [4] About Project")
