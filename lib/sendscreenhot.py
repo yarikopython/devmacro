@@ -1,67 +1,16 @@
-from automation import inventoryscreen, storagescreen, questscreen, autoequip, questAHK
-from pyrobloxbot import NoRobloxWindowException
+import logging, time, os, configparser, requests, sys
+from inventory.py.inventoryscreen import inventoryscreen
+from quest.py.questscreen import questscreen
+from storage.py.storagescreen import storagescreen
 
-import os
-import requests
-import keyboard
-import logging
-
-import pyautogui
-import time
-import threading
-import sys
-import configparser
-from automation import config
-
-
-
-if "settings" not in config.sections():
-    config.add_section("settings")
-
-
-
-vip = False
-running = True
-
-
-def settings():
-        
-    os.system("cls")
-    vipif = input("Are you vip player?: ")
-    if vipif == "yes".lower():
-        vip = True
-        config.set("settings", "vip", str(vip))
-
-    else:
-        vip = False
-        config.set("settings","vip", str(vip))
-        
-    auraforequip = str(input("Which aura you want to have for auto equip?:"))
-    userid = int(input("Please paste your user id to get ping: "))
-    webhook_url = str(input("Please paste your webhook url: "))
-
-    config.set("settings", "auratoequip", auraforequip)
-    config.set("settings", "userid", userid)
-    config.set("settings", "webhook_url", webhook_url)
-
-    with open("py\\config.ini", "w") as configfile:
-        config.write(configfile)
-
-    print("Settings are saved, press Enter to get back to menu.")
-            
-
-
-
-
-
-
+config = configparser.ConfigParser()
 
 def screenshots_send():
     logging.info("Getting png paths...")
-    inventory_path = "py\\invetoryscreen.png"
-    storage_path = "py\\storagescreen.png"
-    quest_path = "py\\questscreen.png"
-    config.read("py\\config.ini")
+    inventory_path = "lib/screenshots/invetoryscreen.png"
+    storage_path = "lib/screenshots/storagescreen.png"
+    quest_path = "lib/screenshots/questscreen.png"
+    config.read("lib/settings/config.ini")
     webhook_url = config.get("settings", "webhook_url")
 
     logging.info("Completed.")
@@ -107,7 +56,6 @@ def screenshots_send():
                                             "url": "attachment://questscreen.png"
                                         }}
 
-            log_data = {"content": "**Macro Logs**", }
 
             logging.info("Sending files to users webhook...")
 
@@ -141,36 +89,6 @@ def screenshots_send():
 
             os.remove(inventory_path)
             os.remove(storage_path)
-            os.remove(quest_path)
+            os.remove(quest_path) #removing to get fresh screenshots in the next time
 
             logging.info("Completed.")
-
-
-
-def clearlogs(filepath):
-    with open(file=filepath, mode="w") as file:
-        file.write("")
-        file.close()
-
-
-def exit():
-    while True:
-        keyboard.wait('f3')
-        os._exit(1)        
-
-def run():
-    clearlogs("py\\macrolog.txt")
-    logging.info("Starting the program.")
-    while True:
-        threading.Thread(target=exit).start()
-        questAHK()
-        time.sleep(4)
-        autoequip("Glock")
-        time.sleep(4)
-        screenshots_send()
-
-
-"""time.sleep(2)
-settings()
-time.sleep(1)
-screenshots_send()"""

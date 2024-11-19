@@ -6,7 +6,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
 
-Sleep, 2000W
+Sleep, 1000
 
 Send {Esc}
 Sleep, 1000
@@ -27,12 +27,19 @@ Sleep, 1000
 MouseClick
 
 
-
-
-MouseMove, 1202, 614 ; 2nd quest
+MouseMove, 620, 766
 Sleep, 1000
 MouseClick
 
+
+
+MouseMove, 1393, 606 ; 2nd quest
+Sleep, 1000
+MouseClick
+
+MouseMove, 620, 766
+Sleep, 1000
+MouseClick
 
 
 
@@ -41,6 +48,9 @@ Sleep, 1000
 MouseClick
 
 
+MouseMove, 620, 766
+Sleep, 1000
+MouseClick
 
 
 MouseMove, 47, 600 ; Closing quest
